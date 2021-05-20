@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        main{
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            background-color: rgb(241, 241, 241);
+        }
+        .fc-block{
+            padding : 0.3rem;
+            position: relative;
+            user-select: none;
+            width: 250px;
+            height: 80px;
+            background-color: rgb(43, 74, 252);
+            color: white;
+        }
+        .fc-block-out{
+            color : white;
+            background-color: rgb(241, 74, 32);
+        }
+        .fc-block-draging{
+            position : absolute;
+        }
+
+        .canvas {
+            position : relative;
+            width : 75%;
+            transition : all 0.6s ease-in-out;
+            height : 100vh;
+        }
+        .canvas:hover{
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        }
+
+
+        .title{
+            font-size: 2rem;
+            color:rgb(59, 59, 59);
+        }
+        #root{
+            display: flex;
+        }
+        #left-nav{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap:1rem;
+            height: 100vh;
+            width: 25%;
+            min-width: 250px;
+            background-color: rgb(241, 241, 241);
+        }
+
+    </style>
+</head>
+<body>
+    <main id = "root" >
+
+        <div id = "left-nav">
+            <h3 class = "title">Draggable elements</h3>
+            <div class="fc-block-out fc-block" data-block-out-type="loggers"></div>
+            <div class="fc-block-out fc-block" data-block-out-type="loggers"></div>
+        </div>
+        <div class = "canvas">
+
+        </div>
+
+    </main>
+    <script src = "fc.js">
+    </script>
+</body>
+</html>
