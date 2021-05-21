@@ -70,6 +70,19 @@ const getLenghtBlocks = () => {
 const addBlock = (data) => {
 	blocks.push(data);
 }
+const updateCurrentBlockData = (element) => {
+	const id = element.id;
+	var dataBlock = blocks.map(block => {
+		if (block.blockId === id ) {
+			block.x = mouseX;
+			block.y = mouseY;
+			return block;
+		}else{
+			return block;
+		}
+	});
+	blocks = dataBlock;
+}
 
 // DRAG UTILS
 const setDrag = (element) => {
@@ -181,13 +194,11 @@ document.addEventListener('mousemove', (event) => {
 	} 
 	else if (active && existRelocateElement()) {
 		updateLocationRelocateElement(relocate);
+		updateCurrentBlockData(relocate);
 	}
 })
 
 document.addEventListener('mouseup', (event) => {
-	const storeBlock = () => {
-
-	}
 	const activeCurrentBlock = () => {
 		
 	}
@@ -216,6 +227,8 @@ document.addEventListener('mouseup', (event) => {
 			blockId: drag.id,
 			x: mouseX,
 			y: mouseY,
+			childs : [],
+			nextId : null,
 		});
 	}
 	const attachFirstBlockInCanvas = () => {
@@ -228,6 +241,8 @@ document.addEventListener('mouseup', (event) => {
 			blockId: drag.id,
 			x: mouseX,
 			y: mouseY,
+			childs : [],
+			nextId : null,
 		});
 		console.log(blocks[0]);
 	}
