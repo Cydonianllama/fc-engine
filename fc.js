@@ -88,16 +88,21 @@ const updateLocationRelocateElement = (element) => {
 		x,
 		y,
 	} = canvas.getBoundingClientRect();
-	var top_ = mouseY + window.scrollY - y ;
-	var left_ = mouseX + window.screenX - x;
+	var elementData = element.getBoundingClientRect();
+	var top_ = mouseY + window.scrollY - y - (elementData.height/2) ;
+	var left_ = mouseX + window.screenX - x - (elementData.width/2);
 	element.style.left = left_.toString() + "px";
 	element.style.top = top_.toString() + "px";
 }
-const updateLocationDragElement = () => {
+const updateLocationDragElement = (drag) => {
 	// need to center the drag element in movement
 	// need a draggin element in absolute positioning
-	var top_ = mouseY + window.scrollY - pady;
-	var left_ = mouseX + window.screenX - padx;
+	const {
+		height,
+		width,
+	} = drag.getBoundingClientRect();
+	var top_ = mouseY + window.scrollY - (height/2);
+	var left_ = mouseX + window.screenX - (width/2);
 	drag.style.left = left_.toString()+"px";
 	drag.style.top = top_.toString()+"px";
 }
@@ -171,7 +176,7 @@ document.addEventListener('mousemove', (event) => {
 	if (active && existDragElement()) {
 		stateDragging();
 		disableCurrentBlock();
-		updateLocationDragElement();
+		updateLocationDragElement(drag);
 		alertBlockInAttachementZone();
 	} 
 	else if (active && existRelocateElement()) {
@@ -191,11 +196,15 @@ document.addEventListener('mouseup', (event) => {
 	}
 	const adjustBlockLocation = () => {
 		var {
+			x,
+			width,
 			y,
 			height,
 		} = prevBlock.getBoundingClientRect();
-		var top_ = y + height + 50;
-		drag.style.top = top_.toString() + "px"; 
+		var top_ = y + height + 40;
+		var left_ = x - canvas.getBoundingClientRect().x;
+		drag.style.top = top_.toString() + "px";
+		drag.style.left = left_.toString() + "px"; 
 	}
 	const attachBlockInCanvas = () => {
 		blockPrevAppendCanvas();
@@ -263,8 +272,9 @@ document.addEventListener('mouseup', (event) => {
 			x,
 			y,
 		} = canvas.getBoundingClientRect();
-		var top_ = mouseY - y;
-		var left_ = mouseX - x;
+		const dragData = drag.getBoundingClientRect();
+		var top_ = mouseY - y - (dragData.height/2);
+		var left_ = mouseX - x - (dragData.width/2);
 		drag.style.top = top_.toString() + "px";
 		drag.style.left = left_.toString() + "px";
 	}
@@ -309,7 +319,6 @@ document.addEventListener('mouseup', (event) => {
 	if (relocating){
 		statePasive();
 		relocate=null;
-		console.log('doing relocating');
 	}
 	
 });
